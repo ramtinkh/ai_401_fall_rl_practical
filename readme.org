@@ -2,6 +2,11 @@
 
 بازی ایکس او و الگوریتم Q-Learning برای حل آن در اختیار شما قرار گرفته است.
 
+* Install Dependencies
+#+begin_example zsh
+pip install -U numpy open_spiel
+#+end_example
+
 * TD-Learning on State-Action Pairs (Q-Learning)
 
 قسمت هایی که با =fillMe= مشخص شده اند را تکمیل کنید. سپس با دستور زیر برنامه را اجرا کنید:
