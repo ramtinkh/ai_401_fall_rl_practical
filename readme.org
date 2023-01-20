@@ -45,6 +45,8 @@ reward_mask = np.array([[0, 1, 0],
 
 * TD-Learning on States
 
+*این سوال حذف شده است و نیازی به تحویل آن نیست.*
+
 الگوریتم TD-Learning بر روی state ها (و نه state-action ها مثل Q-Learning) را در فایل tabular_tdlearner.py پیاده سازی کنید. برای اجرای این الگوریتم نیاز به تغییراتی در فایل tic_tac_toe_qlearner.py هم می باشید؛ این فایل را به نام tic_tac_toe_tdlearner.py کپی کنید و تغییرات لازم را در آن بدهید. از پاداش تغییریافته مرحله قبل *استفاده نکنید*.
 
 درنهایت وقتی به خروجی مناسب رسیدید، آن را در فایل result_3.txt قرار دهید:
