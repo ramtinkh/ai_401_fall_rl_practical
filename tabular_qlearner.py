@@ -86,9 +86,23 @@ class QLearner(rl_agent.AbstractAgent):
         """
         probs = np.zeros(self._num_actions)
 
-        # @fillMe
+        if np.random.random() < epsilon:
+          best_action = None
+          best_f = 0
 
-        action = np.random.choice(range(self._num_actions), p=probs)
+          for action in legal_actions:
+            if best_action == None:
+              best_action = action
+              best_f = self.q_values[info_state][action]
+            else:
+              f = self.q_values[info_state][action]
+              if f > best_f:
+                best_action = action
+                best_f = f
+        else:
+          action = np.argmax(probs)
+
+        # action = np.random.choice(range(self._num_actions), p=probs)
         return action, probs
 
     def _get_action_probs(self, info_state, legal_actions, epsilon):
@@ -135,7 +149,19 @@ class QLearner(rl_agent.AbstractAgent):
 
         # Learn step: don't learn during evaluation or at first agent steps.
         if self._prev_info_state and not is_evaluation:
-            # @fillMe
+            final_reward = 0
+            if not time_step.last():
+                max_next_state = -1 * np.inf
+                for action in legal_actions:
+                    q_val = self._q_values[info_state][action]
+                    max_next_state = max(max_next_state, q_val)
+                final_reward += self._discount_factor * max_next_state
+            final_reward += time_step.rewards[self._player_id]
+            final_reward -= self._q_values[self._prev_info_state][self._prev_action]
+            self._last_loss_value = final_reward
+            self._q_values[self._prev_info_state][self._prev_action] += self._step_size * final_reward
+
+
 
             # Decay epsilon, if necessary.
             self._epsilon = self._epsilon_schedule.step()
